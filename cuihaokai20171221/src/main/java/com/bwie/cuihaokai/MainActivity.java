@@ -18,6 +18,8 @@ import com.bwie.util.MyNetTask;
 import com.bwie.util.NetStateUtil;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager view_pager;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
+        ArrayList<Integer> ints = new ArrayList<>();
         //判断网络
         if (NetStateUtil.isConn(MainActivity.this)){
             //吐司
