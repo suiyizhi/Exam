@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bwie.cuihaokai.MainActivity"
+    android:orientation="vertical"
+    >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_weight="12"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"></android.support.v4.view.ViewPager>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rbtn01"
+            android:text="首页"
+            android:checked="true"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_selector"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/rbtn02"
+            android:text="分类"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_selector"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/rbtn03"
+            android:text="发现"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_selector"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/rbtn04"
+            android:text="购物车"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_selector"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/rbtn05"
+            android:text="我"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rb_selector"
+            android:layout_height="match_parent" />
+    </RadioGroup>
+
+</LinearLayout>

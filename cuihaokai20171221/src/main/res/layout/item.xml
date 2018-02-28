@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_height="match_parent">
+
+    <com.bwie.view.MyTextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.bwie.view.MyGridView
+        android:id="@+id/grid_view"
+        android:numColumns="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.bwie.view.MyGridView>
+
+</LinearLayout>
