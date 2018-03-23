@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.adapter.Myadapter;
+import com.example.bean.User;
 import com.example.test01ui.R;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -38,6 +39,11 @@ public class Fragment1 extends Fragment{
             sendEmptyMessageDelayed(0,1500);
         }
     };
+
+    private String urlpath="https://api.tianapi.com/wxnew/?key=48a7d7193e11bd2dd4a683b6e2f90a4f&num=10&page=";
+    private int pageindex=1;
+    private String path=urlpath+pageindex;
+    List<User.NewslistBean> list2=new ArrayList<User.NewslistBean>();
 
     @Nullable
     @Override
