@@ -1,6 +1,7 @@
 package com.example.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,10 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.adapter.Myadapter;
+import com.example.adapter.Mybaseadapter;
 import com.example.bean.User;
 import com.example.test01ui.R;
+import com.example.util.MyNetTask;
+import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
@@ -44,6 +50,7 @@ public class Fragment1 extends Fragment{
     private int pageindex=1;
     private String path=urlpath+pageindex;
     List<User.NewslistBean> list2=new ArrayList<User.NewslistBean>();
+    private Mybaseadapter mybaseadapter;
 
     @Nullable
     @Override
@@ -66,5 +73,72 @@ public class Fragment1 extends Fragment{
         Myadapter myadapter = new Myadapter(list, getActivity());
         view_pager.setAdapter(myadapter);
         handler.sendEmptyMessageDelayed(0,1500);
+
+//        初始化prt
+        initPlv();
+
+        MyNetTask netTask = new MyNetTask(new MyNetTask.Icallback() {
+            @Override
+            public void getjson(String jsonstr) {
+                Gson gson = new Gson();
+                User user = gson.fromJson(jsonstr, User.class);
+                list2.addAll(user.getNewslist());
+                setAdapter();
+            }
+        });
+        netTask.execute(path);
+    }
+
+    private void initPlv() {
+        //设置两端刷新的模式
+        ptf.setMode(PullToRefreshBase.Mode.BOTH);
+        //监听
+        ptf.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
+                pageindex=1;
+                path=urlpath+pageindex;
+                MyNetTask netTask = new MyNetTask(new MyNetTask.Icallback() {
+                    @Override
+                    public void getjson(String jsonstr) {
+                        Gson gson = new Gson();
+                        User user = gson.fromJson(jsonstr, User.class);
+                        List<User.NewslistBean> newslist = user.getNewslist();
+                        list2.clear();
+                        list2.addAll(newslist);
+                        setAdapter();
+                        ptf.onRefreshComplete();
+                    }
+                });
+                netTask.execute(path);
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
+                pageindex++;
+                path=urlpath+pageindex;
+                MyNetTask netTask2 = new MyNetTask(new MyNetTask.Icallback() {
+                    @Override
+                    public void getjson(String jsonstr) {
+                        Gson gson = new Gson();
+                        User user = gson.fromJson(jsonstr, User.class);
+                        List<User.NewslistBean> newslist = user.getNewslist();
+                        list2.addAll(newslist);
+                        setAdapter();
+                        ptf.onRefreshComplete();
+                    }
+                });
+                netTask2.execute(path);
+            }
+        });
+    }
+
+    public void setAdapter(){
+        if (mybaseadapter==null) {
+            mybaseadapter = new Mybaseadapter(list2, getActivity());
+            ptf.setAdapter(mybaseadapter);
+        }else {
+            mybaseadapter.notifyDataSetChanged();
+        }
     }
 }
